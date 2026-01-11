@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane id="BorderPane" fx:id="ap_main_page" prefHeight="662.0" prefWidth="1083.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cbb_reportes.MainPageController">
+<BorderPane id="BorderPane" fx:id="ap_main_page" prefHeight="662.0" prefWidth="1083.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cbd_reportes.MainPageController">
    <center>
        <Pane prefHeight="602.0" style="-fx-background-color: F5F5F5;">
          <children>
@@ -291,7 +291,7 @@
                   <JFXTextField fx:id="usuario_agregar_usuario" layoutX="94.0" layoutY="230.0" prefWidth="930.0" promptText="Usuario" />
                   <Separator layoutY="73.0" prefHeight="3.0" prefWidth="1089.0" />
                   <Separator layoutY="442.0" prefHeight="3.0" prefWidth="1084.0" />
-                  <Label alignment="CENTER" layoutX="142.0" layoutY="25.0" prefHeight="17.0" prefWidth="721.0" text="Formulario para crear un nuevo usuario para el Sistema CBB - Permisos">
+                  <Label alignment="CENTER" layoutX="142.0" layoutY="25.0" prefHeight="17.0" prefWidth="721.0" text="Formulario para crear un nuevo usuario para el Sistema CBD - Permisos">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -352,7 +352,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Button layoutX="421.0" layoutY="135.0" mnemonicParsing="false" onAction="#reporteriaEvent" prefHeight="37.0" prefWidth="226.0" style="-fx-background-radius: 15; -fx-background-color: 6A9D67;" text="GENERAR" />
+                  <Button layoutX="421.0" layoutY="135.0" mnemonicParsing="false" onAction="#reporteriaEvent" prefHeight="37.0" prefWidth="226.0" style="-fx-background-radius: 15; -fx-background-color: #6A9D67;" text="GENERAR" />
                </children>
             </Pane>
          </children>
@@ -361,7 +361,7 @@
    <top>
       <MenuBar prefHeight="27.0" prefWidth="837.0" BorderPane.alignment="CENTER">
         <menus>
-            <Menu mnemonicParsing="false" text="CBB">
+            <Menu mnemonicParsing="false" text="CBD">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#versionMenuEvent" text="Versión" />
               </items>

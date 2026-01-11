@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cbb_reportes;
+package cbd_reportes;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -440,7 +440,7 @@ public class MainPageController implements Initializable {
     @FXML
     private void versionMenuEvent(ActionEvent event) {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Cuerpo Bomberos de Balzar");
+        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
         alert.setHeaderText(null);
         alert.setContentText(String.format("Versión %s", Settings.version));
         alert.showAndWait();
@@ -453,7 +453,7 @@ public class MainPageController implements Initializable {
         ArrayList<Clientes> clientesList = new ArrayList<>();
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM clientes WHERE is_active = true;";
+            String sql = "SELECT * FROM clientes_cbd WHERE is_active = true;";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -496,7 +496,7 @@ public class MainPageController implements Initializable {
     private void getLiquidacion(Clientes cliente, ArrayList<Clientes> clientesList) {
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM permisos WHERE permisos.id_clientes = " + cliente.getId() + " ORDER BY id DESC LIMIT 1;";
+            String sql = "SELECT * FROM permisos_cbd WHERE permisos.id_clientes = " + cliente.getId() + " ORDER BY id DESC LIMIT 1;";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -509,7 +509,7 @@ public class MainPageController implements Initializable {
                     int year = Calendar.getInstance().get(Calendar.YEAR);
                     if (fecha_expiracion < year) {
                         Alert alert = new Alert(AlertType.CONFIRMATION);
-                        alert.setTitle("Cuerpo Bomberos de Balzar");
+                        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
                         alert.setHeaderText(null);
                         alert.setContentText(String.format("El cliente %s tiene pendiente de pagos", cliente.getFullName()));
                         alert.showAndWait();
@@ -529,18 +529,18 @@ public class MainPageController implements Initializable {
     private void liquidarPersona(Clientes cliente, ArrayList<Clientes> clientesList) {
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String query = "UPDATE clientes SET is_active = false WHERE id = ?";
+            String query = "UPDATE clientes_cbd SET is_active = false WHERE id = ?";
             PreparedStatement pstmt = null;
             pstmt = mysqlConnect.connect().prepareStatement(query);
             pstmt.setString(1, String.valueOf(cliente.getId()));
             pstmt.executeUpdate();
             Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Cuerpo Bomberos de Balzar");
+            alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
             alert.setHeaderText(null);
             alert.setContentText(String.format("El cliente %s ha sido liquidado.", cliente.getFullName()));
             alert.showAndWait();
             clientesList = new ArrayList();
-            String sql = "SELECT * FROM clientes WHERE is_active = true;";
+            String sql = "SELECT * FROM clientes_cbd WHERE is_active = true;";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -555,7 +555,7 @@ public class MainPageController implements Initializable {
             }
             rs.close();
 
-            sql = "SELECT `permisos`.`id`, `permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes`, `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso WHERE clientes.id = " + cliente.getId() + " AND clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id ORDER BY permisos.id;";
+            sql = "SELECT `permisos`.`id`, `permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes_cbd`, `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd WHERE clientes.id = " + cliente.getId() + " AND clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id ORDER BY permisos.id;";
             Permiso _permiso_ = new Permiso();
             mysqlConnect = new MysqlConnect();
             try {
@@ -599,7 +599,7 @@ public class MainPageController implements Initializable {
         ArrayList<Clientes> clientesList = new ArrayList<>();
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM clientes WHERE is_active = true AND cedula LIKE '%" + _parametro_ + "%';";
+            String sql = "SELECT * FROM clientes_cbd WHERE is_active = true AND cedula LIKE '%" + _parametro_ + "%';";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -924,7 +924,7 @@ public class MainPageController implements Initializable {
         ObservableList cursors = FXCollections.observableArrayList();
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM tipo_permiso WHERE is_active = True;";
+            String sql = "SELECT * FROM tipo_permiso_cbd WHERE is_active = True;";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -996,13 +996,13 @@ public class MainPageController implements Initializable {
                 }
                 MysqlConnect mysqlConnect = new MysqlConnect();
                 Clientes cliente = new Clientes();
-                String sql = "SELECT * FROM clientes WHERE cedula = '" + emision_cedula.getText() + "';";
+                String sql = "SELECT * FROM clientes_cbd WHERE cedula = '" + emision_cedula.getText() + "';";
                 ResultSet rs = null;
                 try {
                     Statement st = (Statement) mysqlConnect.connect().createStatement();
                     rs = st.executeQuery(sql);
                     if (rs.next()) {
-                        String query = "UPDATE clientes SET "
+                        String query = "UPDATE clientes_cbd SET "
                                 + "nombre = ?, apellido = ? "
                                 + "WHERE cedula = ?";
                         PreparedStatement preparedStmt = mysqlConnect.connect().prepareStatement(query);
@@ -1018,14 +1018,14 @@ public class MainPageController implements Initializable {
                         cliente.setIs_active(rs.getBoolean("is_active"));
                         cliente.setIs_closed(rs.getBoolean("is_closed"));
                     } else {
-                        String query = "INSERT INTO clientes(nombre, apellido, cedula)"
+                        String query = "INSERT INTO clientes_cbd(nombre, apellido, cedula)"
                                 + " values (?,?,?)";
                         PreparedStatement preparedStmt = mysqlConnect.connect().prepareStatement(query);
                         preparedStmt.setString(1, emision_nombre.getText());
                         preparedStmt.setString(2, emision_apellido.getText());
                         preparedStmt.setString(3, emision_cedula.getText());
                         preparedStmt.execute();
-                        sql = "SELECT * FROM clientes WHERE cedula = '" + emision_cedula.getText() + "';";
+                        sql = "SELECT * FROM clientes_cbd WHERE cedula = '" + emision_cedula.getText() + "';";
                         try {
                             st = (Statement) mysqlConnect.connect().createStatement();
                             rs = st.executeQuery(sql);
@@ -1058,7 +1058,7 @@ public class MainPageController implements Initializable {
     private void updatePermiso(MysqlConnect mysqlConnect, Clientes cliente, String expiration_date) {
         try {
             final String _modo_permiso_ = modo_permiso.getSelectionModel().getSelectedItem().toString();
-            String query = "UPDATE permisos SET "
+            String query = "UPDATE permisos_cbd SET "
                     + "descripcion = ?, fecha_emision = ?, fecha_expiracion = ?, "
                     + "modo_permiso = ?, id_usuario = ?, id_tipo_permiso = ?, "
                     + "id_clientes = ?, numero_deposito = ?, fecha_documento = ?,"
@@ -1101,7 +1101,7 @@ public class MainPageController implements Initializable {
             emision_extintor.setSelected(false);
 
             Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Cuerpo Bomberos de Balzar");
+            alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
             alert.setHeaderText(null);
             alert.setContentText("Permiso actualizado con exito.");
             alert.show();
@@ -1116,7 +1116,7 @@ public class MainPageController implements Initializable {
     private void insertPermiso(ResultSet rs, MysqlConnect mysqlConnect, Clientes cliente, String expiration_date) {
         try {
             final String _modo_permiso_ = modo_permiso.getSelectionModel().getSelectedItem().toString();
-            String _sql_ = "SELECT codigo_permiso FROM permisos WHERE modo_permiso = '" + _modo_permiso_ + "' ORDER BY id DESC LIMIT 1;";
+            String _sql_ = "SELECT codigo_permiso FROM permisos_cbd WHERE modo_permiso = '" + _modo_permiso_ + "' ORDER BY id DESC LIMIT 1;";
             String codigo_permiso = "";
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(_sql_);
@@ -1135,7 +1135,7 @@ public class MainPageController implements Initializable {
                 mysqlConnect.disconnect();
             }
             final String _codigo_permiso_ = codigo_permiso;
-            String query = "INSERT INTO permisos("
+            String query = "INSERT INTO permisos_cbd("
                     + "descripcion, fecha_emision, fecha_expiracion, "
                     + "modo_permiso, id_usuario, id_tipo_permiso, "
                     + "id_clientes, numero_deposito, fecha_documento,"
@@ -1185,7 +1185,7 @@ public class MainPageController implements Initializable {
             emision_extintor.setSelected(false);
 
             Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Cuerpo Bomberos de Balzar");
+            alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
             alert.setHeaderText(null);
             alert.setContentText("Espere unos momentos....");
             alert.show();
@@ -1227,7 +1227,7 @@ public class MainPageController implements Initializable {
                     + "tipo_permiso.tipo_permiso, clientes.id as id_clientes, "
                     + "clientes.nombre, clientes.apellido, "
                     + "clientes.is_active as cliente_is_active, clientes.cedula "
-                    + "FROM permisos , tipo_permiso, clientes "
+                    + "FROM permisos_cbd , tipo_permiso_cbd, clientes_cbd "
                     + "WHERE permisos.id_tipo_permiso = tipo_permiso.id AND "
                     + "permisos.id_clientes = clientes.id AND "
                     + "permisos.modo_permiso = '" + modo_permiso + "' AND "
@@ -1378,7 +1378,7 @@ public class MainPageController implements Initializable {
             MysqlConnect mysqlConnect = new MysqlConnect();
             try {
                 int id = permiso.getId();
-                String query = "UPDATE permisos SET ruta_pdf = ? WHERE id = ?;";
+                String query = "UPDATE permisos_cbd SET ruta_pdf = ? WHERE id = ?;";
                 PreparedStatement preparedStmt = mysqlConnect.connect().prepareStatement(query);
                 preparedStmt.setString(1, _path_list_);
                 preparedStmt.setInt(2, id);
@@ -2832,7 +2832,7 @@ public class MainPageController implements Initializable {
         ObservableList cursors = FXCollections.observableArrayList();
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM tipo_permiso";
+            String sql = "SELECT * FROM tipo_permiso_cbd";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -3011,7 +3011,7 @@ public class MainPageController implements Initializable {
         new Thread(() -> {
             try {
                 MysqlConnect mysqlConnect = new MysqlConnect();
-                String query = "UPDATE permisos SET deleted = TRUE WHERE id = ?";
+                String query = "UPDATE permisos_cbd SET deleted = TRUE WHERE id = ?";
                 PreparedStatement pstmt = null;
                 pstmt = mysqlConnect.connect().prepareStatement(query);
                 pstmt.setString(1, String.valueOf(_permiso_.getId()));
@@ -3027,8 +3027,8 @@ public class MainPageController implements Initializable {
                         + "`permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, "
                         + "`permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, permisos.actividad_economica, "
                         + "`tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, "
-                        + "`tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos`, "
-                        + "tipo_permiso, clientes "
+                        + "`tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos_cbd`, "
+                        + "tipo_permiso_cbd, clientes_cbd "
                         + "WHERE permisos.id_tipo_permiso = tipo_permiso.id AND "
                         + "permisos.id_clientes = clientes.id AND "
                         + "permisos.deleted = false ORDER BY permisos.id;";
@@ -3095,15 +3095,15 @@ public class MainPageController implements Initializable {
             String _ddl_ = "";
             String sql = "";
             if (!_parametro_.isEmpty() && generado_tipo_permiso.getSelectionModel().getSelectedItem() == null) {
-                sql = "SELECT permisos.modo_permiso, permisos.numero_deposito, permisos.fecha_documento, permisos.vehiculo_marca, permisos.extintor, permisos.capacidad, permisos.placa, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`codigo_permiso`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso, clientes WHERE permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND (nombre LIKE '%" + _parametro_ + "%' OR cedula LIKE '%" + _parametro_ + "%') AND permisos.deleted = 0 ORDER BY permisos.id;";
+                sql = "SELECT permisos.modo_permiso, permisos.numero_deposito, permisos.fecha_documento, permisos.vehiculo_marca, permisos.extintor, permisos.capacidad, permisos.placa, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`codigo_permiso`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd, clientes_cbd WHERE permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND (nombre LIKE '%" + _parametro_ + "%' OR cedula LIKE '%" + _parametro_ + "%') AND permisos.deleted = 0 ORDER BY permisos.id;";
             } else if (_parametro_.isEmpty() && generado_tipo_permiso.getSelectionModel().getSelectedItem() != null) {
                 _ddl_ = generado_tipo_permiso.getSelectionModel().getSelectedItem().toString();
-                sql = "SELECT permisos.modo_permiso, permisos.numero_deposito, permisos.fecha_documento, permisos.vehiculo_marca, permisos.extintor, permisos.capacidad, permisos.placa,  `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`codigo_permiso`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso, clientes WHERE permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' AND permisos.deleted = 0 ORDER BY permisos.id;";
+                sql = "SELECT permisos.modo_permiso, permisos.numero_deposito, permisos.fecha_documento, permisos.vehiculo_marca, permisos.extintor, permisos.capacidad, permisos.placa,  `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`codigo_permiso`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd, clientes_cbd WHERE permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' AND permisos.deleted = 0 ORDER BY permisos.id;";
             } else if (!_parametro_.isEmpty() && generado_tipo_permiso.getSelectionModel().getSelectedItem() != null) {
                 _ddl_ = generado_tipo_permiso.getSelectionModel().getSelectedItem().toString();
-                sql = "SELECT permisos.modo_permiso, permisos.numero_deposito, permisos.fecha_documento, permisos.vehiculo_marca, permisos.extintor, permisos.capacidad, permisos.placa,  `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`codigo_permiso`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso, clientes WHERE permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND (nombre LIKE '%" + _parametro_ + "%' OR cedula LIKE '%" + _parametro_ + "%') AND permisos.deleted = 0 AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
+                sql = "SELECT permisos.modo_permiso, permisos.numero_deposito, permisos.fecha_documento, permisos.vehiculo_marca, permisos.extintor, permisos.capacidad, permisos.placa,  `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`codigo_permiso`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd, clientes_cbd WHERE permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND (nombre LIKE '%" + _parametro_ + "%' OR cedula LIKE '%" + _parametro_ + "%') AND permisos.deleted = 0 AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
             } else if (_parametro_.isEmpty() && generado_tipo_permiso.getSelectionModel().getSelectedItem() == null) {
-                sql = "SELECT permisos.modo_permiso, permisos.numero_deposito, permisos.fecha_documento, permisos.vehiculo_marca, permisos.extintor, permisos.capacidad, permisos.placa,  `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`codigo_permiso`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso, clientes WHERE permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND permisos.deleted = 0 ORDER BY permisos.id;";
+                sql = "SELECT permisos.modo_permiso, permisos.numero_deposito, permisos.fecha_documento, permisos.vehiculo_marca, permisos.extintor, permisos.capacidad, permisos.placa,  `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`codigo_permiso`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd, clientes_cbd WHERE permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND permisos.deleted = 0 ORDER BY permisos.id;";
             }
             permisos = new ArrayList<>();
             MysqlConnect mysqlConnect = new MysqlConnect();
@@ -3175,7 +3175,7 @@ public class MainPageController implements Initializable {
         ObservableList cursors = FXCollections.observableArrayList();
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM tipo_permiso";
+            String sql = "SELECT * FROM tipo_permiso_cbd";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -3367,15 +3367,15 @@ public class MainPageController implements Initializable {
         String _ddl_ = "";
         String sql = "";
         if (!_parametro_.isEmpty() && consultar_tipo_permiso.getSelectionModel().getSelectedItem() == null) {
-            sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso, clientes WHERE " + _modo_permiso_ + " permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND (nombre LIKE '%" + _parametro_ + "%' OR cedula LIKE '%" + _parametro_ + "%') ORDER BY permisos.id;";
+            sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd, clientes_cbd WHERE " + _modo_permiso_ + " permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND (nombre LIKE '%" + _parametro_ + "%' OR cedula LIKE '%" + _parametro_ + "%') ORDER BY permisos.id;";
         } else if (_parametro_.isEmpty() && consultar_tipo_permiso.getSelectionModel().getSelectedItem() != null) {
             _ddl_ = consultar_tipo_permiso.getSelectionModel().getSelectedItem().toString();
-            sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso, clientes WHERE " + _modo_permiso_ + " permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
+            sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd, clientes_cbd WHERE " + _modo_permiso_ + " permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
         } else if (!_parametro_.isEmpty() && consultar_tipo_permiso.getSelectionModel().getSelectedItem() != null) {
             _ddl_ = consultar_tipo_permiso.getSelectionModel().getSelectedItem().toString();
-            sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso, clientes WHERE " + _modo_permiso_ + " permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND (nombre LIKE '%" + _parametro_ + "%' OR cedula LIKE '%" + _parametro_ + "%') AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
+            sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd, clientes_cbd WHERE " + _modo_permiso_ + " permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id AND (nombre LIKE '%" + _parametro_ + "%' OR cedula LIKE '%" + _parametro_ + "%') AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
         } else if (_parametro_.isEmpty() && consultar_tipo_permiso.getSelectionModel().getSelectedItem() == null) {
-            sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso, clientes WHERE " + _modo_permiso_ + " permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id ORDER BY permisos.id;";
+            sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`descripcion`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `permisos`.`id_clientes`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd, clientes_cbd WHERE " + _modo_permiso_ + " permisos.id_tipo_permiso = tipo_permiso.id AND permisos.id_clientes = clientes.id ORDER BY permisos.id;";
         }
         permisos = new ArrayList<>();
         MysqlConnect mysqlConnect = new MysqlConnect();
@@ -3441,7 +3441,7 @@ public class MainPageController implements Initializable {
         setVisiblePane(false, false, true, false, false, false, false, false, false, false, false, false);
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM tipo_permiso;";
+            String sql = "SELECT * FROM tipo_permiso_cbd;";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -3488,7 +3488,7 @@ public class MainPageController implements Initializable {
         } else {
             MysqlConnect mysqlConnect = new MysqlConnect();
             try {
-                String query = "UPDATE tipo_permiso SET tipo_permiso = ?, precio = ?, is_active = ? WHERE id = ?;";
+                String query = "UPDATE tipo_permiso_cbd SET tipo_permiso = ?, precio = ?, is_active = ? WHERE id = ?;";
                 PreparedStatement preparedStmt = mysqlConnect.connect().prepareStatement(query);
                 preparedStmt.setString(1, editar_nombre.getText());
                 preparedStmt.setDouble(2, Double.parseDouble(editar_precio.getText()));
@@ -3535,7 +3535,7 @@ public class MainPageController implements Initializable {
         } else {
             MysqlConnect mysqlConnect = new MysqlConnect();
             try {
-                String query = "INSERT INTO tipo_permiso(tipo_permiso, precio, is_active)"
+                String query = "INSERT INTO tipo_permiso_cbd(tipo_permiso, precio, is_active)"
                         + " values (?,?,?)";
                 PreparedStatement preparedStmt = mysqlConnect.connect().prepareStatement(query);
                 preparedStmt.setString(1, agregar_permiso_nombre.getText());
@@ -3564,7 +3564,7 @@ public class MainPageController implements Initializable {
         ObservableList cursors = FXCollections.observableArrayList();
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM tipo_permiso";
+            String sql = "SELECT * FROM tipo_permiso_cbd";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -3805,18 +3805,18 @@ public class MainPageController implements Initializable {
             String sql = "";
             // RANGO TIEMPO
             if (!_desde_.isEmpty() && detalle_tipo_permiso.getSelectionModel().getSelectedItem() == null) {
-                sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes`, `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND fecha_emision BETWEEN '" + _desde_ + "' AND '" + _hasta_ + "' ORDER BY permisos.id;";
+                sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes_cbd`, `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND fecha_emision BETWEEN '" + _desde_ + "' AND '" + _hasta_ + "' ORDER BY permisos.id;";
                 // TIPO PERMISO
             } else if (_desde_.isEmpty() && detalle_tipo_permiso.getSelectionModel().getSelectedItem() != null) {
                 _ddl_ = detalle_tipo_permiso.getSelectionModel().getSelectedItem().toString();
-                sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes`, `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
+                sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes_cbd`, `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo__cbdp_cbdermiso WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
                 // AMBOS
             } else if (!_desde_.isEmpty() && detalle_tipo_permiso.getSelectionModel().getSelectedItem() != null) {
                 _ddl_ = detalle_tipo_permiso.getSelectionModel().getSelectedItem().toString();
-                sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes`, `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND fecha_emision BETWEEN '" + _desde_ + "' AND '" + _hasta_ + "' AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
+                sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes_cbd`, `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND fecha_emision BETWEEN '" + _desde_ + "' AND '" + _hasta_ + "' AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
                 // NINGUNO
             } else if (_desde_.isEmpty() && detalle_tipo_permiso.getSelectionModel().getSelectedItem() == null) {
-                sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes`, `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id ORDER BY permisos.id;";
+                sql = "SELECT `permisos`.`deleted`, `permisos`.`id`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`codigo_permiso`, `permisos`.`modo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes_cbd`, `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id ORDER BY permisos.id;";
             }
             permisos = new ArrayList<>();
             MysqlConnect mysqlConnect = new MysqlConnect();
@@ -3885,7 +3885,7 @@ public class MainPageController implements Initializable {
         ObservableList cursors = FXCollections.observableArrayList();
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM tipo_permiso";
+            String sql = "SELECT * FROM tipo_permiso_cbd";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -4110,7 +4110,7 @@ public class MainPageController implements Initializable {
     @FXML
     private void arqueoDescargar(ActionEvent event) {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Cuerpo Bomberos de Balzar");
+        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
         alert.setHeaderText(null);
         alert.setContentText("Espere unos momentos....");
         alert.show();
@@ -4137,7 +4137,7 @@ public class MainPageController implements Initializable {
             document.setMargins(80, 80, 80, 100);
             document.open();
 
-            image = Image.getInstance(getClass().getClassLoader().getResource("img/cbc_logo_small_transparency.png"));
+            image = Image.getInstance(getClass().getClassLoader().getResource("img/cbd_logo_small_transparency.png"));
             image.setAbsolutePosition(250, 770);
             canvas.addImage(image);
 
@@ -4148,7 +4148,7 @@ public class MainPageController implements Initializable {
             _p1_.clear();
             _p1_.setFont(boldRedFont);
             p1.setAlignment(Element.ALIGN_CENTER);
-            _p1_.add("INFORME ARQUEO DE CAJA CUERPO BOMBERO DE BALZAR");
+            _p1_.add("INFORME ARQUEO DE CAJA CUERPO DE BOMBEROS MUNICIPAL DE CUMANDÁ");
             p1.add(_p1_);
             document.add(p1);
 
@@ -4311,18 +4311,18 @@ public class MainPageController implements Initializable {
             String sql = "";
             // RANGO TIEMPO
             if (!_desde_.isEmpty() && arqueo_tipo_permiso.getSelectionModel().getSelectedItem() == null) {
-                sql = "SELECT `permisos`.`id`,  `permisos`.`numero_deposito`,`permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes`, `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND fecha_emision BETWEEN '" + _desde_ + "' AND '" + _hasta_ + "' ORDER BY permisos.id;";
+                sql = "SELECT `permisos`.`id`,  `permisos`.`numero_deposito`,`permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes_cbd`, `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND fecha_emision BETWEEN '" + _desde_ + "' AND '" + _hasta_ + "' ORDER BY permisos.id;";
                 // TIPO PERMISO
             } else if (_desde_.isEmpty() && arqueo_tipo_permiso.getSelectionModel().getSelectedItem() != null) {
                 _ddl_ = arqueo_tipo_permiso.getSelectionModel().getSelectedItem().toString();
-                sql = "SELECT `permisos`.`id`,  `permisos`.`numero_deposito`,`permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes`, `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
+                sql = "SELECT `permisos`.`id`,  `permisos`.`numero_deposito`,`permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes_cbd`, `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
                 // AMBOS
             } else if (!_desde_.isEmpty() && arqueo_tipo_permiso.getSelectionModel().getSelectedItem() != null) {
                 _ddl_ = arqueo_tipo_permiso.getSelectionModel().getSelectedItem().toString();
-                sql = "SELECT `permisos`.`id`,  `permisos`.`numero_deposito`,`permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes`, `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND fecha_emision BETWEEN '" + _desde_ + "' AND '" + _hasta_ + "' AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
+                sql = "SELECT `permisos`.`id`,  `permisos`.`numero_deposito`,`permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes_cbd`, `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id AND fecha_emision BETWEEN '" + _desde_ + "' AND '" + _hasta_ + "' AND tipo_permiso.tipo_permiso LIKE '%" + _ddl_ + "%' ORDER BY permisos.id;";
                 // NINGUNO
             } else if (_desde_.isEmpty() && arqueo_tipo_permiso.getSelectionModel().getSelectedItem() == null) {
-                sql = "SELECT `permisos`.`id`, `permisos`.`numero_deposito`, `permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes`, `iknqkp0ked7o0xf6`.`permisos`, tipo_permiso WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id ORDER BY permisos.id;";
+                sql = "SELECT `permisos`.`id`, `permisos`.`numero_deposito`, `permisos`.`deleted`, `clientes`.`id` as clientes_id, `clientes`.`nombre`, `clientes`.`apellido`, `clientes`.`cedula`, `permisos`.`razon_social`, `permisos`.`direccion`, `permisos`.`actividad_economica`, `permisos`.`modo_permiso`, `permisos`.`codigo_permiso`, `permisos`.`descripcion`, `permisos`.`fecha_emision`, `permisos`.`fecha_expiracion`, `permisos`.`ruta_pdf`, `permisos`.`id_tipo_permiso`, `tipo_permiso`.precio, `tipo_permiso`.tipo_permiso, `tipo_permiso`.is_active FROM `iknqkp0ked7o0xf6`.`clientes_cbd`, `iknqkp0ked7o0xf6`.`permisos_cbd`, tipo_permiso_cbd WHERE " + _modo_permiso_ + " clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id ORDER BY permisos.id;";
             }
             permisos = new ArrayList<>();
             MysqlConnect mysqlConnect = new MysqlConnect();
@@ -4468,7 +4468,7 @@ public class MainPageController implements Initializable {
 
     private void generate_Construccion_Funcionamiento(String titulo, String dateQuery) {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Cuerpo Bomberos de Balzar");
+        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
         alert.setHeaderText(null);
         alert.setContentText("Espere unos momentos....");
         alert.show();
@@ -4485,7 +4485,7 @@ public class MainPageController implements Initializable {
                     + "permisos.id_clientes, clientes.cedula, clientes.nombre, "
                     + "clientes.apellido, clientes.is_active, tipo_permiso, "
                     + "precio, tipo_permiso.is_active as permiso_active "
-                    + "FROM permisos , tipo_permiso, clientes "
+                    + "FROM permisos_cbd , tipo_permiso_cbd, clientes_cbd "
                     + "WHERE clientes.id = permisos.id_clientes AND "
                     + "permisos.id_tipo_permiso = tipo_permiso.id AND "
                     + "permisos.modo_permiso = '" + titulo + "' "
@@ -4555,7 +4555,7 @@ public class MainPageController implements Initializable {
             document.setMargins(80, 80, 80, 100);
             document.open();
 
-            image = Image.getInstance(getClass().getClassLoader().getResource("img/cbc_logo_small_transparency.png"));
+            image = Image.getInstance(getClass().getClassLoader().getResource("img/cbd_logo_small_transparency.png"));
             image.setAbsolutePosition(250, 770);
             canvas.addImage(image);
 
@@ -4566,7 +4566,7 @@ public class MainPageController implements Initializable {
             _p1_.clear();
             _p1_.setFont(boldRedFont);
             p1.setAlignment(Element.ALIGN_CENTER);
-            _p1_.add(String.format("INFORME PERMISOS %s\nCUERPO BOMBERO DE BALZAR", titulo.toUpperCase(Locale.US)));
+            _p1_.add(String.format("INFORME PERMISOS %s\nCUERPO DE BOMBEROS MUNICIPAL DE CUMANDÁ", titulo.toUpperCase(Locale.US)));
             p1.add(_p1_);
             document.add(p1);
 
@@ -4681,7 +4681,7 @@ public class MainPageController implements Initializable {
 
     private void generate_Ocasional_Transporte(String titulo, String dateQuery) {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Cuerpo Bomberos de Balzar");
+        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
         alert.setHeaderText(null);
         alert.setContentText("Espere unos momentos....");
         alert.show();
@@ -4697,7 +4697,7 @@ public class MainPageController implements Initializable {
                     + "clientes.apellido, permisos.direccion, permisos.actividad_economica, "
                     + "permisos.razon_social, clientes.is_active, "
                     + "tipo_permiso, precio, tipo_permiso.is_active as "
-                    + "permiso_active FROM permisos , tipo_permiso, clientes "
+                    + "permiso_active FROM permisos_cbd , tipo_permiso_cbd, clientes_cbd "
                     + "WHERE clientes.id = permisos.id_clientes AND "
                     + "permisos.id_tipo_permiso = tipo_permiso.id AND "
                     + "permisos.modo_permiso = '" + titulo + "' "
@@ -4765,7 +4765,7 @@ public class MainPageController implements Initializable {
             document.setMargins(80, 80, 80, 100);
             document.open();
 
-            image = Image.getInstance(getClass().getClassLoader().getResource("img/cbc_logo_small_transparency.png"));
+            image = Image.getInstance(getClass().getClassLoader().getResource("img/cbd_logo_small_transparency.png"));
             image.setAbsolutePosition(250, 770);
             canvas.addImage(image);
 
@@ -4776,7 +4776,7 @@ public class MainPageController implements Initializable {
             _p1_.clear();
             _p1_.setFont(boldRedFont);
             p1.setAlignment(Element.ALIGN_CENTER);
-            _p1_.add(String.format("INFORME PERMISOS %s\nCUERPO BOMBERO DE BALZAR", titulo.toUpperCase()));
+            _p1_.add(String.format("INFORME PERMISOS %s\nCUERPO DE BOMBEROS MUNICIPAL DE CUMANDÁ", titulo.toUpperCase()));
             p1.add(_p1_);
             document.add(p1);
 
@@ -4909,7 +4909,7 @@ public class MainPageController implements Initializable {
     
     private void makePDFEmpresa(String dateQuery){
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Cuerpo Bomberos de Balzar");
+        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
         alert.setHeaderText(null);
         alert.setContentText("Espere unos momentos....");
         alert.show();
@@ -4917,7 +4917,7 @@ public class MainPageController implements Initializable {
         ArrayList<Cantidad> cantidads = new ArrayList();
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT tipo_permiso.tipo_permiso, tipo_permiso.precio, nombre, apellido, cedula, razon_social, fecha_emision, fecha_expiracion, `permisos`.`codigo_permiso`, permisos.id FROM iknqkp0ked7o0xf6.permisos, iknqkp0ked7o0xf6.clientes, iknqkp0ked7o0xf6.tipo_permiso WHERE clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id "+dateQuery+" ORDER BY cedula, razon_social;";
+            String sql = "SELECT tipo_permiso.tipo_permiso, tipo_permiso.precio, nombre, apellido, cedula, razon_social, fecha_emision, fecha_expiracion, `permisos`.`codigo_permiso`, permisos.id FROM iknqkp0ked7o0xf6.permisos_cbd, iknqkp0ked7o0xf6.clientes_cbd, iknqkp0ked7o0xf6.tipo_permiso_cbd WHERE clientes.id = permisos.id_clientes AND permisos.id_tipo_permiso = tipo_permiso.id "+dateQuery+" ORDER BY cedula, razon_social;";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -4965,7 +4965,7 @@ public class MainPageController implements Initializable {
             document.setMargins(80, 80, 80, 100);
             document.open();
 
-            image = Image.getInstance(getClass().getClassLoader().getResource("img/cbc_logo_small_transparency.png"));
+            image = Image.getInstance(getClass().getClassLoader().getResource("img/cbd_logo_small_transparency.png"));
             image.setAbsolutePosition(250, 770);
             canvas.addImage(image);
 
@@ -4976,7 +4976,7 @@ public class MainPageController implements Initializable {
             _p1_.clear();
             _p1_.setFont(boldRedFont);
             p1.setAlignment(Element.ALIGN_CENTER);
-            _p1_.add("INFORME USUARIOS CUERPO BOMBERO DE BALZAR");
+            _p1_.add("INFORME USUARIOS CUERPO DE BOMBEROS MUNICIPAL DE CUMANDÁ");
             p1.add(_p1_);
             document.add(p1);
 
@@ -5101,13 +5101,13 @@ public class MainPageController implements Initializable {
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
             Statement st = (Statement) mysqlConnect.connect().createStatement();
-            st.execute("DELETE FROM config");
+            st.execute("DELETE FROM config_cbd");
             st.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            stage.getIcons().add(new javafx.scene.image.Image(CBB_Reportes.class.getResourceAsStream("/img/cbc_logo.png")));
-            stage.setTitle("CBB - Permisos");
+            stage.getIcons().add(new javafx.scene.image.Image(CBD_Reportes.class.getResourceAsStream("/img/cbd_logo.png")));
+            stage.setTitle("CBD - Permisos");
             stage.setScene(new Scene(root1));
             stage.show();
             ap_main_page.getScene().getWindow().hide();
@@ -5142,8 +5142,8 @@ public class MainPageController implements Initializable {
     private void showDialog(String titulo, String text, AlertType alert_type) {
         // Alert alert = new Alert(alert_type);
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Cuerpo Bomberos de Balzar");
-        // alert.setHeaderText("Cuerpo Bomberos de Balzar");
+        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
+        // alert.setHeaderText("Cuerpo de Bomberos Municipal de Cumandá");
         alert.setHeaderText(null);
         alert.setContentText(text);
         alert.showAndWait();
@@ -5160,7 +5160,7 @@ public class MainPageController implements Initializable {
         permisos = new ArrayList<>();
         usuario = new Usuario();
         MysqlConnect mysqlConnect = new MysqlConnect();
-        String sql = "SELECT * FROM usuarios WHERE id=" + Settings.getUser_id() + ";";
+        String sql = "SELECT * FROM usuarios_cbd WHERE id=" + Settings.getUser_id() + ";";
         try {
             Statement st = (Statement) mysqlConnect.connect().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -5209,7 +5209,7 @@ public class MainPageController implements Initializable {
                     if (liquidar_tv.getSelectionModel().getSelectedItem() != null) {
                         MysqlConnect mysqlConnect = new MysqlConnect();
                         ArrayList clientesList = new ArrayList();
-                        String sql = "SELECT * FROM clientes WHERE is_active = true;";
+                        String sql = "SELECT * FROM clientes_cbd WHERE is_active = true;";
                         ResultSet rs;
                         try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                             rs = st.executeQuery(sql);
@@ -5233,7 +5233,7 @@ public class MainPageController implements Initializable {
                         if (val.equals("Liquidar")) {
                             Clientes cliente = liquidar_tv.getSelectionModel().getSelectedItem();
                             Alert alert = new Alert(AlertType.CONFIRMATION);
-                            alert.setTitle("Cuerpo Bomberos de Balzar");
+                            alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
                             alert.setHeaderText(null);
                             alert.setContentText(String.format("Está seguro que desea liquidar el usuario %s?", cliente.getFullName()));
                             Optional<ButtonType> result = alert.showAndWait();
@@ -5433,7 +5433,7 @@ public class MainPageController implements Initializable {
 
                     if (val.equals("Anular")) {
                         Alert alert = new Alert(AlertType.CONFIRMATION);
-                        alert.setTitle("Cuerpo Bomberos de Balzar");
+                        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
                         alert.setHeaderText(null);
                         alert.setContentText(String.format("Está seguro que desea eliminar el permiso #%s?", _permiso_.getCodigo_permiso()));
                         Optional<ButtonType> result = alert.showAndWait();
@@ -5535,7 +5535,7 @@ public class MainPageController implements Initializable {
                     Object val = tablePosition.getTableColumn().getCellData(newValue);
                     if (val.equals("Ver")) {
                         Alert alert = new Alert(AlertType.INFORMATION);
-                        alert.setTitle("Cuerpo Bomberos de Balzar");
+                        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
                         alert.setHeaderText(null);
                         alert.setContentText("Espere unos momentos....");
                         alert.show();
@@ -5605,7 +5605,7 @@ public class MainPageController implements Initializable {
                     Object val = tablePosition.getTableColumn().getCellData(newValue);
                     if (val.equals("Ver")) {
                         Alert alert = new Alert(AlertType.INFORMATION);
-                        alert.setTitle("Cuerpo Bomberos de Balzar");
+                        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
                         alert.setHeaderText(null);
                         alert.setContentText("Espere unos momentos....");
                         alert.show();
@@ -5650,7 +5650,7 @@ public class MainPageController implements Initializable {
                     Object val = tablePosition.getTableColumn().getCellData(newValue);
                     if (val.equals("Ver")) {
                         Alert alert = new Alert(AlertType.INFORMATION);
-                        alert.setTitle("Cuerpo Bomberos de Balzar");
+                        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
                         alert.setHeaderText(null);
                         alert.setContentText("Espere unos momentos....");
                         alert.show();
@@ -5703,7 +5703,7 @@ public class MainPageController implements Initializable {
         usuarioList = new ArrayList<>();
         MysqlConnect mysqlConnect = new MysqlConnect();
         try {
-            String sql = "SELECT * FROM usuarios";
+            String sql = "SELECT * FROM usuarios_cbd";
             ResultSet rs;
             try (Statement st = (Statement) mysqlConnect.connect().createStatement()) {
                 rs = st.executeQuery(sql);
@@ -5771,7 +5771,7 @@ public class MainPageController implements Initializable {
             usuario.setId(user_id);
             MysqlConnect mysqlConnect = new MysqlConnect();
             try {
-                String query = "UPDATE usuarios SET nombre = ?, apellido = ?, usuario = ?, contrasena = ?, is_active = ?, is_superuser = ? WHERE id = ?;";
+                String query = "UPDATE usuarios_cbd SET nombre = ?, apellido = ?, usuario = ?, contrasena = ?, is_active = ?, is_superuser = ? WHERE id = ?;";
                 PreparedStatement preparedStmt = mysqlConnect.connect().prepareStatement(query);
                 preparedStmt.setString(1, usuario.getFirst_name());
                 preparedStmt.setString(2, usuario.getLast_name());
@@ -5830,7 +5830,7 @@ public class MainPageController implements Initializable {
         } else {
             MysqlConnect mysqlConnect = new MysqlConnect();
             try {
-                String query = "INSERT INTO usuarios(nombre, apellido, usuario, contrasena,"
+                String query = "INSERT INTO usuarios_cbd(nombre, apellido, usuario, contrasena,"
                         + "is_active, is_superuser)"
                         + " values (?,?,?,?,?,?)";
                 PreparedStatement preparedStmt = mysqlConnect.connect().prepareStatement(query);
@@ -5882,7 +5882,7 @@ public class MainPageController implements Initializable {
         try {
             StringWriter sw = new StringWriter();
             error.printStackTrace(new PrintWriter(sw));
-            String query = "INSERT INTO error(error_simple, error) values (?,?)";
+            String query = "INSERT INTO error_cbd(error_simple, error) values (?,?)";
             PreparedStatement preparedStmt = mysqlConnect.connect().prepareStatement(query);
             preparedStmt.setString(1, error.getLocalizedMessage());
             preparedStmt.setString(2, sw.toString());

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cbb_reportes;
+package cbd_reportes;
 
 import javafx.geometry.Rectangle2D;
 import com.mysql.jdbc.Statement;
@@ -28,12 +28,12 @@ import mysql.MysqlConnect;
  *
  * @author saulmestanza
  */
-public class CBB_Reportes extends Application {
+public class CBD_Reportes extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
         MysqlConnect mysqlConnect = new MysqlConnect();
-        String sql = "SELECT * FROM config;";
+        String sql = "SELECT * FROM config_cbd;";
         try {
             Statement st = (Statement) mysqlConnect.connect().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -42,7 +42,7 @@ public class CBB_Reportes extends Application {
             }
             while (rs.next()){
                 if(rs.getBoolean("is_logged")){
-                    sql = "SELECT * FROM usuarios WHERE id="+rs.getInt("user_id")+";";
+                    sql = "SELECT * FROM usuarios_cbd WHERE id="+rs.getInt("user_id")+";";
                     try {
                         st = (Statement) mysqlConnect.connect().createStatement();
                         rs = st.executeQuery(sql);
@@ -81,7 +81,7 @@ public class CBB_Reportes extends Application {
         try {
             
             String userHome = System.getProperty("user.home");
-            File file = new File(userHome, "my.lock");
+            File file = new File(userHome, "my_cbd.lock");
             FileChannel fc = FileChannel.open(file.toPath(),
                 StandardOpenOption.CREATE,
                 StandardOpenOption.WRITE
@@ -92,14 +92,14 @@ public class CBB_Reportes extends Application {
             }else{
                 root = FXMLLoader.load(getClass().getResource(fxml));
                 Scene scene = new Scene(root);
-                stage.getIcons().add(new Image(CBB_Reportes.class.getResourceAsStream("/img/cbc_logo.png")));
+                stage.getIcons().add(new Image(CBD_Reportes.class.getResourceAsStream("/img/cbd_logo.png")));
                 stage.setScene(scene);
                 stage.setResizable(false);
-                stage.setTitle("CBB - Permisos");
+                stage.setTitle("CBD - Permisos");
                 stage.show();
             }
         } catch (IOException ex) {
-            Logger.getLogger(CBB_Reportes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CBD_Reportes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     /**

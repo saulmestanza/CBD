@@ -5,7 +5,7 @@
  */
 package modelo;
 
-import cbb_reportes.PrecioToLetras;
+import cbd_reportes.PrecioToLetras;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

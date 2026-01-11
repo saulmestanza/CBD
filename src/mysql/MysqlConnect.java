@@ -5,7 +5,7 @@
  */
 package mysql;
 
-import cbb_reportes.Settings;
+import cbd_reportes.Settings;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

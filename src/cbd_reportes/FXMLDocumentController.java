@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cbb_reportes;
+package cbd_reportes;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -65,7 +65,7 @@ public class FXMLDocumentController implements Initializable {
             login_button.setVisible(false);
             login_progress.setVisible(true);
             MysqlConnect mysqlConnect = new MysqlConnect();
-            String sql = "SELECT * FROM usuarios WHERE usuario='" + txt_usuario.getText() + "';";
+            String sql = "SELECT * FROM usuarios_cbd WHERE usuario='" + txt_usuario.getText() + "';";
             try {
                 Statement st = (Statement) mysqlConnect.connect().createStatement();
                 ResultSet rs = st.executeQuery(sql);
@@ -85,14 +85,14 @@ public class FXMLDocumentController implements Initializable {
                                 int _id_usuario = rs.getInt("id");
                                 Settings.setUser_id(_id_usuario);
                                 st = (Statement) mysqlConnect.connect().createStatement();
-                                st.execute("DELETE FROM config");
-                                st.executeUpdate("INSERT INTO config (is_logged, user_id) VALUES (1, " + _id_usuario + ")");
+                                st.execute("DELETE FROM config_cbd");
+                                st.executeUpdate("INSERT INTO config_cbd (is_logged, user_id) VALUES (1, " + _id_usuario + ")");
                                 try {
                                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
                                     Parent root1 = (Parent) fxmlLoader.load();
                                     Stage stage = new Stage();
-                                    stage.getIcons().add(new Image(CBB_Reportes.class.getResourceAsStream("/img/cbc_logo.png")));
-                                    stage.setTitle("CBB - Permisos");
+                                    stage.getIcons().add(new Image(CBD_Reportes.class.getResourceAsStream("/img/cbd_logo.png")));
+                                    stage.setTitle("CBD - Permisos");
                                     stage.setScene(new Scene(root1));
                                     stage.setResizable(false);
                                     stage.show();
@@ -131,7 +131,7 @@ public class FXMLDocumentController implements Initializable {
         // Alert alert = new Alert(alert_type);
         Alert alert = new Alert(AlertType.INFORMATION);
         // alert.setTitle(titulo);
-        alert.setTitle("Cuerpo Bomberos de Balzar");
+        alert.setTitle("Cuerpo de Bomberos Municipal de Cumandá");
         alert.setHeaderText(null);
         alert.setContentText(text);
         alert.showAndWait();

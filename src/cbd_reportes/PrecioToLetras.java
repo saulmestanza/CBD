@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cbb_reportes;
+package cbd_reportes;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

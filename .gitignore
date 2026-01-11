@@ -30,7 +30,7 @@ dist/**
 build/**
 recreate_db.sql
 Credenciales.txt
-cbb.sql
+cbd.sql
 create_db.sql
 /build/
 /dist/
