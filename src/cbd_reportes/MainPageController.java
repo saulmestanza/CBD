@@ -950,11 +950,12 @@ public class MainPageController implements Initializable {
         emision_fecha.setValue(LocalDate.now());
 
         ObservableList _permisos_ = FXCollections.observableArrayList();
-        _permisos_.add("Transporte");
-        _permisos_.add("Ocasional");
-        _permisos_.add("Construcción");
+        // _permisos_.add("Transporte");
+        // _permisos_.add("Ocasional");
+        // _permisos_.add("Construcción");
         _permisos_.add("Funcionamiento");
         modo_permiso.setItems(_permisos_);
+        modo_permiso.getSelectionModel().select(0);
         fecha_ocasional.setDisable(true);
         fecha_ocasional.setValue(null);
         emision_descripcion.setVisible(false);
@@ -963,6 +964,15 @@ public class MainPageController implements Initializable {
         emision_capacidad.setVisible(false);
         emision_extintor.setVisible(false);
         emision_actividad_economica.setVisible(false);
+        
+        fecha_ocasional.setDisable(true);
+        fecha_ocasional.setValue(null);
+        emision_descripcion.setVisible(false);
+        emision_vehiculo.setVisible(false);
+        emision_placa.setVisible(false);
+        emision_capacidad.setVisible(false);
+        emision_extintor.setVisible(false);
+        emision_actividad_economica.setVisible(true);
     }
 
     @FXML
@@ -2902,7 +2912,7 @@ public class MainPageController implements Initializable {
             emision_tipo_permiso.getSelectionModel().select(tp);
         });
         switch (permiso.getModo_permiso()) {
-            case "Transporte":
+            /*case "Transporte":
                 modo_permiso.getSelectionModel().select(0);
                 break;
             case "Ocasional":
@@ -2910,9 +2920,9 @@ public class MainPageController implements Initializable {
                 break;
             case "Construcción":
                 modo_permiso.getSelectionModel().select(2);
-                break;
+                break;*/
             case "Funcionamiento":
-                modo_permiso.getSelectionModel().select(3);
+                modo_permiso.getSelectionModel().select(0);
                 break;
         }
         try {
@@ -3331,11 +3341,12 @@ public class MainPageController implements Initializable {
             }
         });
         ObservableList _permisos_ = FXCollections.observableArrayList();
-        _permisos_.add("Transporte");
-        _permisos_.add("Ocasional");
-        _permisos_.add("Construcción");
+        // _permisos_.add("Transporte");
+        // _permisos_.add("Ocasional");
+        // _permisos_.add("Construcción");
         _permisos_.add("Funcionamiento");
         consultar_modo_permiso.setItems(_permisos_);
+        consultar_modo_permiso.getSelectionModel().select(0);
     }
 
     @FXML
@@ -3758,11 +3769,12 @@ public class MainPageController implements Initializable {
         };
         detalle_date_picker_desde.setDayCellFactory(desdeCellFactory);
         ObservableList _permisos_ = FXCollections.observableArrayList();
-        _permisos_.add("Transporte");
-        _permisos_.add("Ocasional");
-        _permisos_.add("Construcción");
+        // _permisos_.add("Transporte");
+        // _permisos_.add("Ocasional");
+        // _permisos_.add("Construcción");
         _permisos_.add("Funcionamiento");
         detalle_modo_permiso.setItems(_permisos_);
+        detalle_modo_permiso.getSelectionModel().select(0);
     }
 
     @FXML
@@ -4100,11 +4112,12 @@ public class MainPageController implements Initializable {
         };
         arqueo_date_picker_desde.setDayCellFactory(desdeCellFactory);
         ObservableList _permisos_ = FXCollections.observableArrayList();
-        _permisos_.add("Transporte");
-        _permisos_.add("Ocasional");
-        _permisos_.add("Construcción");
+        // _permisos_.add("Transporte");
+        // _permisos_.add("Ocasional");
+        // _permisos_.add("Construcción");
         _permisos_.add("Funcionamiento");
         arqueo_modo_permiso.setItems(_permisos_);
+        arqueo_modo_permiso.getSelectionModel().select(0);
     }
 
     @FXML
@@ -5107,7 +5120,7 @@ public class MainPageController implements Initializable {
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.getIcons().add(new javafx.scene.image.Image(CBD_Reportes.class.getResourceAsStream("/img/cbd_logo.png")));
-            stage.setTitle("CBD - Permisos");
+            stage.setTitle("CBC - Permisos");
             stage.setScene(new Scene(root1));
             stage.show();
             ap_main_page.getScene().getWindow().hide();

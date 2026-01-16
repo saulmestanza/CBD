@@ -95,7 +95,7 @@ public class CBD_Reportes extends Application {
                 stage.getIcons().add(new Image(CBD_Reportes.class.getResourceAsStream("/img/cbd_logo.png")));
                 stage.setScene(scene);
                 stage.setResizable(false);
-                stage.setTitle("CBD - Permisos");
+                stage.setTitle("CBC - Permisos");
                 stage.show();
             }
         } catch (IOException ex) {

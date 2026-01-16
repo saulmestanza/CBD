@@ -92,7 +92,7 @@ public class FXMLDocumentController implements Initializable {
                                     Parent root1 = (Parent) fxmlLoader.load();
                                     Stage stage = new Stage();
                                     stage.getIcons().add(new Image(CBD_Reportes.class.getResourceAsStream("/img/cbd_logo.png")));
-                                    stage.setTitle("CBD - Permisos");
+                                    stage.setTitle("CBC - Permisos");
                                     stage.setScene(new Scene(root1));
                                     stage.setResizable(false);
                                     stage.show();
