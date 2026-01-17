@@ -100,6 +100,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableRow;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import modelo.Cantidad;
@@ -337,8 +338,6 @@ public class MainPageController implements Initializable {
     private TableColumn<Usuario, String> usuario_column_apellido;
     @FXML
     private TableColumn<Usuario, String> usuario_column_usuario;
-    @FXML
-    private TableColumn<Usuario, String> usuario_column_contrasena;
     @FXML
     private TableColumn<Usuario, Boolean> usuario_column_activo;
     @FXML
@@ -4954,7 +4953,7 @@ public class MainPageController implements Initializable {
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        File _file_ = new File(String.format("%sinforme_usuarios.pdf", directoryName));
+        File _file_ = new File(String.format("%sreporte_general.pdf", directoryName));
         try {
             Font boldRedFont = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD, BaseColor.RED);
             Font normalBoldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK);
@@ -4982,7 +4981,7 @@ public class MainPageController implements Initializable {
             _p1_.clear();
             _p1_.setFont(boldRedFont);
             p1.setAlignment(Element.ALIGN_CENTER);
-            _p1_.add("INFORME USUARIOS CUERPO DE BOMBEROS MUNICIPAL DE CUMANDÁ");
+            _p1_.add("REPORTE GENERAL CUERPO DE BOMBEROS MUNICIPAL DE CUMANDÁ");
             p1.add(_p1_);
             document.add(p1);
 
@@ -5456,6 +5455,7 @@ public class MainPageController implements Initializable {
         modo_permiso.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
             if (newValue != null) {
                 switch (newValue.toString()) {
+                    /*
                     case "Transporte":
                         fecha_ocasional.setDisable(false);
                         fecha_ocasional.setValue(null);
@@ -5489,6 +5489,7 @@ public class MainPageController implements Initializable {
                         emision_extintor.setVisible(false);
                         emision_actividad_economica.setVisible(false);
                         break;
+                    */
                     case "Funcionamiento":
                         fecha_ocasional.setDisable(true);
                         fecha_ocasional.setValue(null);
@@ -5507,7 +5508,7 @@ public class MainPageController implements Initializable {
                         emision_placa.setVisible(false);
                         emision_capacidad.setVisible(false);
                         emision_extintor.setVisible(false);
-                        emision_actividad_economica.setVisible(false);
+                        emision_actividad_economica.setVisible(true);
                 }
             }
         });
@@ -5698,6 +5699,48 @@ public class MainPageController implements Initializable {
                 }
             }
         });
+        
+        numero_deposito.setOnKeyPressed(e -> {     
+            if (e.getCode() == KeyCode.TAB) {         
+                emision_nombre.requestFocus();         
+                e.consume();     
+            } 
+        });
+        
+        emision_nombre.setOnKeyPressed(e -> {     
+            if (e.getCode() == KeyCode.TAB) {         
+                emision_apellido.requestFocus();         
+                e.consume();     
+            } 
+        });
+        
+        emision_apellido.setOnKeyPressed(e -> {     
+            if (e.getCode() == KeyCode.TAB) {         
+                emision_cedula.requestFocus();         
+                e.consume();     
+            } 
+        });
+        
+        emision_cedula.setOnKeyPressed(e -> {     
+            if (e.getCode() == KeyCode.TAB) {         
+                emision_razon_social.requestFocus();         
+                e.consume();     
+            } 
+        });
+        
+        emision_razon_social.setOnKeyPressed(e -> {     
+            if (e.getCode() == KeyCode.TAB) {         
+                emision_actividad_economica.requestFocus();         
+                e.consume();     
+            } 
+        });
+        
+        emision_actividad_economica.setOnKeyPressed(e -> {     
+            if (e.getCode() == KeyCode.TAB) {         
+                emision_direccion.requestFocus();         
+                e.consume();     
+            } 
+        });
 
     }
 
@@ -5734,19 +5777,6 @@ public class MainPageController implements Initializable {
         usuario_column_nombre.setCellValueFactory(new PropertyValueFactory<>("first_name"));
         usuario_column_apellido.setCellValueFactory(new PropertyValueFactory<>("last_name"));
         usuario_column_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
-        usuario_column_contrasena.setCellFactory(column -> new TableCell<Usuario, String>() {
-            @Override
-            protected void updateItem(String password, boolean empty) {
-                super.updateItem(password, empty);
-                if (empty || password == null) {
-                    setText(null);
-                } else {
-                    char[] mask = new char[password.length()];
-                    Arrays.fill(mask, '*');
-                    setText(new String(mask));
-                }
-            }
-        });
         usuario_column_activo.setCellValueFactory(new PropertyValueFactory<>("activado"));
         usuario_column_is_superuser.setCellValueFactory(new PropertyValueFactory<>("admin"));
 

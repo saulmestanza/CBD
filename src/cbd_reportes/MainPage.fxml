@@ -240,7 +240,7 @@
                   <Separator layoutY="118.0" prefHeight="3.0" prefWidth="1087.0" />
                   <Label layoutX="40.0" layoutY="87.0" text="Permiso es: " />
                   <DatePicker fx:id="fecha_ocasional" disable="true" editable="false" layoutX="487.0" layoutY="81.0" prefHeight="27.0" prefWidth="554.0" promptText="Válido Hasta" />
-                  <TextField id="emision_cedula" fx:id="numero_deposito" layoutX="40.0" layoutY="166.0" prefHeight="27.0" prefWidth="521.0" promptText="Número Depósito" />
+                  <TextField id="numero_deposito" fx:id="numero_deposito" layoutX="40.0" layoutY="166.0" prefHeight="27.0" prefWidth="521.0" promptText="Número Depósito" />
                   <DatePicker fx:id="fecha_documento" editable="false" layoutX="580.0" layoutY="165.0" prefHeight="27.0" prefWidth="459.0" promptText="Fecha del documento de pago" showWeekNumbers="true" />
                   <ChoiceBox fx:id="modo_permiso" layoutX="125.0" layoutY="82.0" prefHeight="27.0" prefWidth="349.0" />
                   <TextField fx:id="emision_vehiculo" layoutX="40.0" layoutY="483.0" prefWidth="280.0" promptText="Vehículo Marca" />
@@ -258,7 +258,6 @@
                       <TableColumn fx:id="usuario_column_nombre" prefWidth="220.48667526245117" text="Nombre" />
                       <TableColumn fx:id="usuario_column_apellido" prefWidth="228.5133056640625" text="Apellido" />
                         <TableColumn fx:id="usuario_column_usuario" minWidth="4.0" prefWidth="172.83499145507812" text="Usuario" />
-                        <TableColumn fx:id="usuario_column_contrasena" minWidth="0.0" prefWidth="158.71725463867188" text="Contraseña" />
                         <TableColumn fx:id="usuario_column_activo" minWidth="0.0" prefWidth="141.0419921875" text="Activo" />
                         <TableColumn fx:id="usuario_column_is_superuser" minWidth="0.0" prefWidth="77.95794677734375" text="Es Admin" />
                     </columns>
