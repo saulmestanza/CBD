@@ -952,10 +952,10 @@ public class MainPageController implements Initializable {
         ObservableList _permisos_ = FXCollections.observableArrayList();
         // _permisos_.add("Transporte");
         // _permisos_.add("Ocasional");
-        // _permisos_.add("Construcción");
+        _permisos_.add("Construcción");
         _permisos_.add("Funcionamiento");
         modo_permiso.setItems(_permisos_);
-        modo_permiso.getSelectionModel().select(0);
+        // modo_permiso.getSelectionModel().select(0);
         fecha_ocasional.setDisable(true);
         fecha_ocasional.setValue(null);
         emision_descripcion.setVisible(false);
@@ -964,15 +964,6 @@ public class MainPageController implements Initializable {
         emision_capacidad.setVisible(false);
         emision_extintor.setVisible(false);
         emision_actividad_economica.setVisible(false);
-        
-        fecha_ocasional.setDisable(true);
-        fecha_ocasional.setValue(null);
-        emision_descripcion.setVisible(false);
-        emision_vehiculo.setVisible(false);
-        emision_placa.setVisible(false);
-        emision_capacidad.setVisible(false);
-        emision_extintor.setVisible(false);
-        emision_actividad_economica.setVisible(true);
     }
 
     @FXML
@@ -1334,11 +1325,11 @@ public class MainPageController implements Initializable {
                 case "Ocasional":
                     image = Image.getInstance(getClass().getClassLoader().getResource("img/permiso_ocasional.png"));
                     generateOcasionalPDF(document, writer, permiso);
-                    break;
+                    break;*/
                 case "Construcción":
                     image = Image.getInstance(getClass().getClassLoader().getResource("img/permiso_construccion.png"));
                     generateConstruccionPDF(document, writer, permiso);
-                    break;*/
+                    break;
                 case "Funcionamiento":
                     image = Image.getInstance(getClass().getClassLoader().getResource("img/permiso_funcionamiento.png"));
                     generateFuncionamientoPDF(document, writer, permiso);
@@ -1363,10 +1354,10 @@ public class MainPageController implements Initializable {
                     break;
                 case "Ocasional":
                     copiagenerateOcasionalPDF(document, writer, permiso);
-                    break;
+                    break;*/
                 case "Construcción":
                     copiagenerateConstruccionPDF(document, writer, permiso);
-                    break;*/
+                    break;
                 case "Funcionamiento":
                     copiagenerateFuncionamientoPDF(document, writer, permiso);
                     break;
@@ -2909,10 +2900,10 @@ public class MainPageController implements Initializable {
                 break;
             case "Ocasional":
                 modo_permiso.getSelectionModel().select(1);
-                break;
+                break;*/
             case "Construcción":
                 modo_permiso.getSelectionModel().select(2);
-                break;*/
+                break;
             case "Funcionamiento":
                 modo_permiso.getSelectionModel().select(0);
                 break;
@@ -3335,10 +3326,10 @@ public class MainPageController implements Initializable {
         ObservableList _permisos_ = FXCollections.observableArrayList();
         // _permisos_.add("Transporte");
         // _permisos_.add("Ocasional");
-        // _permisos_.add("Construcción");
+        _permisos_.add("Construcción");
         _permisos_.add("Funcionamiento");
         consultar_modo_permiso.setItems(_permisos_);
-        consultar_modo_permiso.getSelectionModel().select(0);
+        // consultar_modo_permiso.getSelectionModel().select(0);
     }
 
     @FXML
@@ -3763,10 +3754,10 @@ public class MainPageController implements Initializable {
         ObservableList _permisos_ = FXCollections.observableArrayList();
         // _permisos_.add("Transporte");
         // _permisos_.add("Ocasional");
-        // _permisos_.add("Construcción");
+        _permisos_.add("Construcción");
         _permisos_.add("Funcionamiento");
         detalle_modo_permiso.setItems(_permisos_);
-        detalle_modo_permiso.getSelectionModel().select(0);
+        // detalle_modo_permiso.getSelectionModel().select(0);
     }
 
     @FXML
@@ -4106,10 +4097,10 @@ public class MainPageController implements Initializable {
         ObservableList _permisos_ = FXCollections.observableArrayList();
         // _permisos_.add("Transporte");
         // _permisos_.add("Ocasional");
-        // _permisos_.add("Construcción");
+        _permisos_.add("Construcción");
         _permisos_.add("Funcionamiento");
         arqueo_modo_permiso.setItems(_permisos_);
-        arqueo_modo_permiso.getSelectionModel().select(0);
+        // arqueo_modo_permiso.getSelectionModel().select(0);
     }
 
     @FXML
@@ -5477,7 +5468,7 @@ public class MainPageController implements Initializable {
                         emision_capacidad.setVisible(false);
                         emision_extintor.setVisible(false);
                         emision_actividad_economica.setVisible(false);
-                        break;
+                        break;*/
                     case "Construcción":
                         fecha_ocasional.setDisable(true);
                         fecha_ocasional.setValue(null);
@@ -5489,7 +5480,6 @@ public class MainPageController implements Initializable {
                         emision_extintor.setVisible(false);
                         emision_actividad_economica.setVisible(false);
                         break;
-                    */
                     case "Funcionamiento":
                         fecha_ocasional.setDisable(true);
                         fecha_ocasional.setValue(null);
@@ -5699,49 +5689,6 @@ public class MainPageController implements Initializable {
                 }
             }
         });
-        
-        numero_deposito.setOnKeyPressed(e -> {     
-            if (e.getCode() == KeyCode.TAB) {         
-                emision_nombre.requestFocus();         
-                e.consume();     
-            } 
-        });
-        
-        emision_nombre.setOnKeyPressed(e -> {     
-            if (e.getCode() == KeyCode.TAB) {         
-                emision_apellido.requestFocus();         
-                e.consume();     
-            } 
-        });
-        
-        emision_apellido.setOnKeyPressed(e -> {     
-            if (e.getCode() == KeyCode.TAB) {         
-                emision_cedula.requestFocus();         
-                e.consume();     
-            } 
-        });
-        
-        emision_cedula.setOnKeyPressed(e -> {     
-            if (e.getCode() == KeyCode.TAB) {         
-                emision_razon_social.requestFocus();         
-                e.consume();     
-            } 
-        });
-        
-        emision_razon_social.setOnKeyPressed(e -> {     
-            if (e.getCode() == KeyCode.TAB) {         
-                emision_actividad_economica.requestFocus();         
-                e.consume();     
-            } 
-        });
-        
-        emision_actividad_economica.setOnKeyPressed(e -> {     
-            if (e.getCode() == KeyCode.TAB) {         
-                emision_direccion.requestFocus();         
-                e.consume();     
-            } 
-        });
-
     }
 
     // LISTA Y EDITAR USUARIOS
