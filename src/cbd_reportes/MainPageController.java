@@ -115,6 +115,7 @@ public class MainPageController implements Initializable {
 
     private ArrayList<Tipo_Permiso> tps;
     private ArrayList<Permiso> permisos;
+    private double priceEspecieValorada = 2.00;
 
     @FXML
     private MenuItem add_permiso;
@@ -2162,27 +2163,7 @@ public class MainPageController implements Initializable {
             document.add(p1);
 
             p1.clear();
-            p1.setSpacingBefore(18f);
-            _p1_.clear();
-            _p1_.setFont(font);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(String.format("$ %s", permiso.getPermiso().getPrecio()));
-            p1.add(_p1_);
-            document.add(p1);
-
-            p1.clear();
-            p1.setSpacingBefore(8f);
+            p1.setSpacingBefore(20f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2193,21 +2174,9 @@ public class MainPageController implements Initializable {
             p1.add(_p1_);
             document.add(p1);
 
-            p1.clear();
-            p1.setSpacingBefore(12f);
-            _p1_.clear();
-            _p1_.setFont(font);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(String.format("%s", permiso.getPrecioEnLetras()));
-            p1.add(_p1_);
-            document.add(p1);
-
             boolean isLonger = false;
             p1.clear();
-            p1.setSpacingBefore(8f);
+            p1.setSpacingBefore(20f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2240,7 +2209,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(12f);
+                p1.setSpacingBefore(18f);
             }
             _p1_.clear();
             _p1_.setFont(smallfont);
@@ -2256,7 +2225,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(4f);
             } else {
-                p1.setSpacingBefore(8f);
+                p1.setSpacingBefore(18f);
             }
             _p1_.clear();
             _p1_.setFont(font);
@@ -2265,6 +2234,33 @@ public class MainPageController implements Initializable {
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
             _p1_.add(String.format("%s", permiso.getFecha_expiracion()));
+            p1.add(_p1_);
+            document.add(p1);
+
+            p1.clear();
+            if (isLonger) {
+                p1.setSpacingBefore(0f);
+            } else {
+                p1.setSpacingBefore(22f);
+            }
+            _p1_.clear();
+            _p1_.setFont(font);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("$ %s", permiso.getPermiso().getPrecio()));
+
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("$ %s", priceEspecieValorada));
+
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("     $ %s", permiso.getPermiso().getTotalPrecio(priceEspecieValorada)));
             p1.add(_p1_);
             document.add(p1);
         } catch (Exception e) {
@@ -2281,7 +2277,6 @@ public class MainPageController implements Initializable {
             Phrase _p1_ = new Phrase();
             Paragraph p1 = new Paragraph();
 
-            document.add(Chunk.NEWLINE);
             document.add(Chunk.NEWLINE);
             document.add(Chunk.NEWLINE);
             document.add(Chunk.NEWLINE);
@@ -2314,7 +2309,7 @@ public class MainPageController implements Initializable {
             document.add(Chunk.NEWLINE);
 
             p1.clear();
-            p1.setSpacingBefore(6f);
+            p1.setSpacingBefore(8f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2336,27 +2331,7 @@ public class MainPageController implements Initializable {
             document.add(p1);
 
             p1.clear();
-            p1.setSpacingBefore(18f);
-            _p1_.clear();
-            _p1_.setFont(font);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(String.format("$ %s", permiso.getPermiso().getPrecio()));
-            p1.add(_p1_);
-            document.add(p1);
-
-            p1.clear();
-            p1.setSpacingBefore(8f);
+            p1.setSpacingBefore(20f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2367,21 +2342,9 @@ public class MainPageController implements Initializable {
             p1.add(_p1_);
             document.add(p1);
 
-            p1.clear();
-            p1.setSpacingBefore(12f);
-            _p1_.clear();
-            _p1_.setFont(font);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(String.format("%s", permiso.getPrecioEnLetras()));
-            p1.add(_p1_);
-            document.add(p1);
-
             boolean isLonger = false;
             p1.clear();
-            p1.setSpacingBefore(8f);
+            p1.setSpacingBefore(20f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2414,7 +2377,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(12f);
+                p1.setSpacingBefore(18f);
             }
             _p1_.clear();
             _p1_.setFont(smallfont);
@@ -2430,7 +2393,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(4f);
             } else {
-                p1.setSpacingBefore(8f);
+                p1.setSpacingBefore(18f);
             }
             _p1_.clear();
             _p1_.setFont(font);
@@ -2439,6 +2402,33 @@ public class MainPageController implements Initializable {
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
             _p1_.add(String.format("%s", permiso.getFecha_expiracion()));
+            p1.add(_p1_);
+            document.add(p1);
+
+            p1.clear();
+            if (isLonger) {
+                p1.setSpacingBefore(0f);
+            } else {
+                p1.setSpacingBefore(22f);
+            }
+            _p1_.clear();
+            _p1_.setFont(font);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("$ %s", permiso.getPermiso().getPrecio()));
+
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("$ %s", priceEspecieValorada));
+
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("     $ %s", permiso.getPermiso().getTotalPrecio(priceEspecieValorada)));
             p1.add(_p1_);
             document.add(p1);
         } catch (Exception e) {
@@ -2496,7 +2486,7 @@ public class MainPageController implements Initializable {
             document.add(p1);
 
             p1.clear();
-            p1.setSpacingBefore(18f);
+            p1.setSpacingBefore(14f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2520,7 +2510,7 @@ public class MainPageController implements Initializable {
             document.add(p1);
 
             p1.clear();
-            p1.setSpacingBefore(12f);
+            p1.setSpacingBefore(10f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2583,7 +2573,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(5f);
+                p1.setSpacingBefore(8f);
             }
             _p1_.clear();
             _p1_.setFont(smallfont);
@@ -2611,14 +2601,14 @@ public class MainPageController implements Initializable {
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
-            _p1_.add("$0.00");
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("$ %s", priceEspecieValorada));
 
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(String.format("     $ %s", permiso.getPermiso().getPrecio()));
+            _p1_.add(String.format("     $ %s", permiso.getPermiso().getTotalPrecio(priceEspecieValorada)));
             p1.add(_p1_);
             document.add(p1);
         } catch (Exception e) {
@@ -2627,11 +2617,11 @@ public class MainPageController implements Initializable {
     }
 
     private void copiagenerateFuncionamientoPDF(Document document, PdfWriter writer, Permiso permiso) {
-        try {
-            Font font = new Font(Font.FontFamily.COURIER, 10, Font.NORMAL);
+         try {
             Font smallfont = new Font(Font.FontFamily.COURIER, 9, Font.NORMAL);
+            Font font = new Font(Font.FontFamily.COURIER, 10, Font.NORMAL);
             Font mediumBoldFont = new Font(Font.FontFamily.COURIER, 12, Font.BOLD, BaseColor.RED);
-            
+
             Phrase _p1_ = new Phrase();
             Paragraph p1 = new Paragraph();
 
@@ -2685,7 +2675,7 @@ public class MainPageController implements Initializable {
             document.add(p1);
 
             p1.clear();
-            p1.setSpacingBefore(18f);
+            p1.setSpacingBefore(14f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2709,7 +2699,7 @@ public class MainPageController implements Initializable {
             document.add(p1);
 
             p1.clear();
-            p1.setSpacingBefore(12f);
+            p1.setSpacingBefore(10f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2756,7 +2746,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(8f);
+                p1.setSpacingBefore(10f);
             }
             _p1_.clear();
             _p1_.setFont(smallfont);
@@ -2767,12 +2757,12 @@ public class MainPageController implements Initializable {
             _p1_.add(String.format("%s", permiso.getDireccion()));
             p1.add(_p1_);
             document.add(p1);
-
+            
             p1.clear();
             if (isLonger) {
                 p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(5f);
+                p1.setSpacingBefore(8f);
             }
             _p1_.clear();
             _p1_.setFont(smallfont);
@@ -2783,12 +2773,12 @@ public class MainPageController implements Initializable {
             _p1_.add(String.format("%s", permiso.getPermiso().getTipo_permiso().split("–")[0]));
             p1.add(_p1_);
             document.add(p1);
-            
+
             p1.clear();
             if (isLonger) {
                 p1.setSpacingBefore(6f);
             } else {
-                p1.setSpacingBefore(6f);
+                p1.setSpacingBefore(10f);
             }
             _p1_.clear();
             _p1_.setFont(font);
@@ -2800,14 +2790,14 @@ public class MainPageController implements Initializable {
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
-            _p1_.add("$0.00");
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("$ %s", priceEspecieValorada));
 
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
             _p1_.add(Chunk.TABBING);
-            _p1_.add(Chunk.TABBING);
-            _p1_.add(String.format("     $ %s", permiso.getPermiso().getPrecio()));
+            _p1_.add(String.format("     $ %s", permiso.getPermiso().getTotalPrecio(priceEspecieValorada)));
             p1.add(_p1_);
             document.add(p1);
         } catch (Exception e) {
@@ -2968,7 +2958,7 @@ public class MainPageController implements Initializable {
                 }
                 break;
             case "Construcción":
-                fecha_ocasional.setDisable(true);
+                fecha_ocasional.setDisable(false);
                 fecha_ocasional.setValue(null);
                 emision_descripcion.setVisible(true);
                 emision_descripcion.setPromptText("Construcción de");
@@ -2977,6 +2967,15 @@ public class MainPageController implements Initializable {
                 emision_capacidad.setVisible(false);
                 emision_extintor.setVisible(false);
                 emision_actividad_economica.setVisible(false);
+                try {
+                    String fecha[] = permiso.getFechaExpiracion().split("-");
+                    fecha_ocasional.setValue(LocalDate.of(
+                            Integer.parseInt(fecha[0]),
+                            Integer.parseInt(fecha[1]),
+                            Integer.parseInt(fecha[2]))
+                    );
+                } catch (Exception e) {
+                }
                 break;
             case "Funcionamiento":
                 fecha_ocasional.setDisable(true);
@@ -5358,7 +5357,7 @@ public class MainPageController implements Initializable {
                         emision_actividad_economica.setVisible(false);
                         break;
                     case "Construcción":
-                        fecha_ocasional.setDisable(true);
+                        fecha_ocasional.setDisable(false);
                         fecha_ocasional.setValue(null);
                         emision_descripcion.setVisible(true);
                         emision_descripcion.setPromptText("Construcción de");
@@ -5470,7 +5469,7 @@ public class MainPageController implements Initializable {
                         emision_actividad_economica.setVisible(false);
                         break;*/
                     case "Construcción":
-                        fecha_ocasional.setDisable(true);
+                        fecha_ocasional.setDisable(false);
                         fecha_ocasional.setValue(null);
                         emision_descripcion.setVisible(true);
                         emision_descripcion.setPromptText("Construcción de");

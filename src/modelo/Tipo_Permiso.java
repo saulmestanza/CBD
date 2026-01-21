@@ -45,6 +45,10 @@ public class Tipo_Permiso {
         return precio;
     }
 
+    public Double getTotalPrecio(double priceEspecieValorada){
+        return precio + priceEspecieValorada;
+    }
+
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
