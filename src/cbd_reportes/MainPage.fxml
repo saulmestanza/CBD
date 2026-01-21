@@ -367,9 +367,9 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Administrador">
               <items>
-                <MenuItem fx:id="menu_liquidar_persona" mnemonicParsing="false" onAction="#liquidarMenuAction" text="Liquidar Persona" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="eliminar_permiso_generado" mnemonicParsing="false" onAction="#eliminarGeneradosMenuAction" text="Editar/Anular Permisos Generados" />
+                <!--<MenuItem fx:id="menu_liquidar_persona" mnemonicParsing="false" onAction="#liquidarMenuAction" text="Liquidar Persona" />
+                <SeparatorMenuItem mnemonicParsing="false" />-->
+                <MenuItem fx:id="eliminar_permiso_generado" mnemonicParsing="false" onAction="#eliminarGeneradosMenuAction" text="Editar/Anular Permisos Generados" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Permisos">

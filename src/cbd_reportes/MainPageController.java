@@ -2163,7 +2163,7 @@ public class MainPageController implements Initializable {
             document.add(p1);
 
             p1.clear();
-            p1.setSpacingBefore(20f);
+            p1.setSpacingBefore(15f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2173,10 +2173,34 @@ public class MainPageController implements Initializable {
             _p1_.add(String.format("%s", permiso.getFullName()));
             p1.add(_p1_);
             document.add(p1);
+            
+            p1.clear();
+            p1.setSpacingBefore(5f);
+            _p1_.clear();
+            _p1_.setFont(font);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("%s", permiso.getCedula()));
+            p1.add(_p1_);
+            document.add(p1);
+            
+            p1.clear();
+            p1.setSpacingBefore(10f);
+            _p1_.clear();
+            _p1_.setFont(font);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(permiso.getRazon_social());
+            p1.add(_p1_);
+            document.add(p1);
 
             boolean isLonger = false;
             p1.clear();
-            p1.setSpacingBefore(20f);
+            p1.setSpacingBefore(12f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2209,7 +2233,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(18f);
+                p1.setSpacingBefore(8f);
             }
             _p1_.clear();
             _p1_.setFont(smallfont);
@@ -2223,9 +2247,9 @@ public class MainPageController implements Initializable {
 
             p1.clear();
             if (isLonger) {
-                p1.setSpacingBefore(4f);
+                p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(18f);
+                p1.setSpacingBefore(10f);
             }
             _p1_.clear();
             _p1_.setFont(font);
@@ -2241,7 +2265,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(22f);
+                p1.setSpacingBefore(5f);
             }
             _p1_.clear();
             _p1_.setFont(font);
@@ -2331,7 +2355,7 @@ public class MainPageController implements Initializable {
             document.add(p1);
 
             p1.clear();
-            p1.setSpacingBefore(20f);
+            p1.setSpacingBefore(15f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2341,10 +2365,34 @@ public class MainPageController implements Initializable {
             _p1_.add(String.format("%s", permiso.getFullName()));
             p1.add(_p1_);
             document.add(p1);
+            
+            p1.clear();
+            p1.setSpacingBefore(5f);
+            _p1_.clear();
+            _p1_.setFont(font);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(String.format("%s", permiso.getCedula()));
+            p1.add(_p1_);
+            document.add(p1);
+            
+            p1.clear();
+            p1.setSpacingBefore(10f);
+            _p1_.clear();
+            _p1_.setFont(font);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(Chunk.TABBING);
+            _p1_.add(permiso.getRazon_social());
+            p1.add(_p1_);
+            document.add(p1);
 
             boolean isLonger = false;
             p1.clear();
-            p1.setSpacingBefore(20f);
+            p1.setSpacingBefore(12f);
             _p1_.clear();
             _p1_.setFont(font);
             _p1_.add(Chunk.TABBING);
@@ -2377,7 +2425,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(18f);
+                p1.setSpacingBefore(8f);
             }
             _p1_.clear();
             _p1_.setFont(smallfont);
@@ -2391,9 +2439,9 @@ public class MainPageController implements Initializable {
 
             p1.clear();
             if (isLonger) {
-                p1.setSpacingBefore(4f);
+                p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(18f);
+                p1.setSpacingBefore(10f);
             }
             _p1_.clear();
             _p1_.setFont(font);
@@ -2409,7 +2457,7 @@ public class MainPageController implements Initializable {
             if (isLonger) {
                 p1.setSpacingBefore(0f);
             } else {
-                p1.setSpacingBefore(22f);
+                p1.setSpacingBefore(5f);
             }
             _p1_.clear();
             _p1_.setFont(font);
@@ -5327,7 +5375,11 @@ public class MainPageController implements Initializable {
         emision_tipo_permiso.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-
+                if(modo_permiso.getValue() == "Construcción") {
+                    int position = emision_tipo_permiso.getSelectionModel().getSelectedIndex();
+                    String permitName = tps.get(position).getTipo_permiso().split("–")[0];
+                    emision_descripcion.setText(permitName);
+                }
             }
         });
 
