@@ -4521,7 +4521,7 @@ public class MainPageController implements Initializable {
         try {
             String sql = "SELECT `permisos_cbd`.`codigo_permiso`, permisos_cbd.id, "
                     + "permisos_cbd.descripcion, permisos_cbd.fecha_emision, "
-                    + "permisos_cbd.fecha_expiracion, pepermisos_cbdrmisos.ruta_pdf, "
+                    + "permisos_cbd.fecha_expiracion, permisos_cbd.ruta_pdf, "
                     + "permisos_cbd.id_usuario, permisos_cbd.id_tipo_permiso, "
                     + "`permisos_cbd`.`razon_social`, `permisos_cbd`.`direccion`, "
                     + "`permisos_cbd`.`actividad_economica`,"
